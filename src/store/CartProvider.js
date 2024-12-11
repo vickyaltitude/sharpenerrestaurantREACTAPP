@@ -4,12 +4,13 @@ import {useState} from 'react'
 const CartProvider = (props)=>{
    
     const [items,setItems] = useState([])
-    const [totalAmount,setTotalAmount] = useState(0);
 
-    const addItemToCartHandler = (getItems,total) => {
-
-           setItems(...items,getItems)
-           setTotalAmount(total)
+    const addItemToCartHandler = (getItems) => {
+           
+          let updateItems = items.filter(item => item.id === getItems.id)
+          setItems((latest)=>[...latest,getItems])
+          
+           
 
     };
     const removeItemFromCartHandler = () => {
@@ -18,7 +19,6 @@ const CartProvider = (props)=>{
 
     const cartContext = {
         items: items,
-        totalAmount: totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler
     }

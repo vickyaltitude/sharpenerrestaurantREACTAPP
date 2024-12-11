@@ -5,15 +5,15 @@ import classes from './MealItemForm.module.css';
 
 const MealItemForm = (props) => {
 
-  const [inputAmount,setInputAmount] = useState(0)
+  const [inputQty,setInputQty] = useState(0)
   const cartCtx = useContext(CartContext)
 
   const handleItemTotalAmount = (ev) =>{
     ev.preventDefault();
-    console.log(cartCtx)
-     cartCtx.totalAmount = Number(cartCtx.totalAmount) + inputAmount
-   
-    console.log(cartCtx.totalAmount)
+    let currentItem = props.meals.filter((meal)=> props.itemId === meal.id)
+         currentItem[0].inputQty = Number(inputQty)
+    cartCtx.addItem(...currentItem)
+
   }
 
   return (
@@ -21,8 +21,8 @@ const MealItemForm = (props) => {
       <Input
         label='Amount'
         input={{
-            value: inputAmount,
-            onChange: (e)=> setInputAmount(e.target.value),
+            value: inputQty,
+            onChange: (e)=> setInputQty(e.target.value),
           id: 'amount_' + props.id,
           type: 'number',
           min: '1',

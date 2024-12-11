@@ -6,11 +6,15 @@ import CartContext from '../../store/cart-context';
 const Cart = (props) => {
 
     const CartCtx = useContext(CartContext)
+    let totalAmount = CartCtx.items.reduce((cumul,curr)=> { 
+        console.log( curr)
+      return  cumul + (curr.price*curr.inputQty)},0)
+   
     
   const cartItems = (
     <ul className={classes['cart-items']}>
-      {[{ id: 'c1', name: 'Sushi', amount: 2, price: 12.99 }].map((item) => (
-        <li>{item.name}</li>
+      {CartCtx.items.map((item) => (
+        <li key={Math.random()}>{item.name}</li>
       ))}
     </ul>
   );
@@ -20,7 +24,7 @@ const Cart = (props) => {
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>{CartCtx.totalAmount}</span>
+        <span>{totalAmount.toFixed(2)}</span>
       </div>
       <div className={classes.actions}>
         <button className={classes['button--alt']} onClick={props.onClose}>
