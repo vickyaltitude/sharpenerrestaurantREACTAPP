@@ -1,6 +1,8 @@
 import Card from '../UI/Card';
 import MealItem from './MealItem/MealItem';
 import classes from './AvailableMeals.module.css';
+import { useContext } from 'react';
+import CartContext from '../../store/cart-context';
 
 const DUMMY_MEALS = [
   {
@@ -29,10 +31,21 @@ const DUMMY_MEALS = [
   },
 ];
 
+
+
 const AvailableMeals = () => {
+
+    const cartCtx = useContext(CartContext)
+
+    function handleCartAdd(rec){
+         
+    }
+
+
   const mealsList = DUMMY_MEALS.map((meal) => (
     <MealItem
       key={meal.id}
+      onClick={()=>handleCartAdd(meal.id)}
       name={meal.name}
       description={meal.description}
       price={meal.price}
