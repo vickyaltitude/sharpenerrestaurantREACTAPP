@@ -7,14 +7,29 @@ const CartProvider = (props)=>{
 
     const addItemToCartHandler = (getItems) => {
            
+        console.log(items,getItems)
           let updateItems = items.filter(item => item.id === getItems.id)
-          setItems((latest)=>[...latest,getItems])
+          if(updateItems.length){
+             let newItems = items.map(item => item.id === getItems.id ? {...item,inputQty: getItems.inputQty + item.inputQty} : item)
+             setItems(latest =>  newItems)
+          }else{
+            setItems((latest)=>[...latest,getItems])
+          }
+         
           
            
 
     };
-    const removeItemFromCartHandler = () => {
-
+    const removeItemFromCartHandler = (getItems,method) => {
+       
+          if(method === 'increase'){
+            let newItems = items.map(item => item.name === getItems ? {...item,inputQty: item.inputQty + 1} : item)
+            setItems(latest =>  newItems)
+          
+          }else if(method === 'decrease'){
+            let newItems = items.map(item => item.name === getItems ? {...item,inputQty: item.inputQty === 0 ? 0 : item.inputQty - 1} : item)
+            setItems(latest =>  newItems)
+          }
     };
 
     const cartContext = {
